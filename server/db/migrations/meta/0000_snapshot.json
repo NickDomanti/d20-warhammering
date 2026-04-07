@@ -1,12 +1,12 @@
 {
-  "id": "9ddbcdf7-bb94-48ac-9bed-a9112e71112d",
+  "id": "9b99dc18-6165-4e4f-900d-f0672f02fc14",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.battles": {
+    "d20_warhammering.battles": {
       "name": "battles",
-      "schema": "",
+      "schema": "d20_warhammering",
       "columns": {
         "id": {
           "name": "id",
@@ -17,6 +17,12 @@
         "budget": {
           "name": "budget",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
           "primaryKey": false,
           "notNull": true
         },
@@ -32,6 +38,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "player1_faction": {
+          "name": "player1_faction",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "player2": {
           "name": "player2",
           "type": "text",
@@ -44,9 +56,9 @@
           "primaryKey": false,
           "notNull": true
         },
-        "date": {
-          "name": "date",
-          "type": "date",
+        "player2_faction": {
+          "name": "player2_faction",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         }
@@ -57,6 +69,7 @@
           "name": "battles_player1_players_name_fk",
           "tableFrom": "battles",
           "tableTo": "players",
+          "schemaTo": "d20_warhammering",
           "columnsFrom": [
             "player1"
           ],
@@ -70,6 +83,7 @@
           "name": "battles_player2_players_name_fk",
           "tableFrom": "battles",
           "tableTo": "players",
+          "schemaTo": "d20_warhammering",
           "columnsFrom": [
             "player2"
           ],
@@ -86,9 +100,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.players": {
+    "d20_warhammering.players": {
       "name": "players",
-      "schema": "",
+      "schema": "d20_warhammering",
       "columns": {
         "name": {
           "name": "name",

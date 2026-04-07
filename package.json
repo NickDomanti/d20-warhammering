@@ -8,26 +8,28 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "migration:generate": "npx drizzle-kit generate \"--config=./.nuxt/hub/db/drizzle.config.ts\" --name",
-    "migration:apply": "npx nuxt db migrate"
+    "migration:generate": "npx drizzle-kit generate --name",
+    "migration:apply": "npx drizzle-kit migrate",
+    "test:seed": "tsx ./server/db/test/seed.ts",
+    "test:reset": "tsx ./server/db/test/reset.ts"
   },
   "dependencies": {
-    "@electric-sql/pglite": "^0.4.3",
     "@nuxt/eslint": "1.15.2",
     "@nuxt/hints": "1.0.3",
     "@nuxt/image": "2.0.0",
     "@nuxt/ui": "4.6.1",
-    "@nuxthub/core": "0.10.7",
-    "drizzle-kit": "^0.31.10",
+    "dotenv": "^17.4.1",
     "drizzle-orm": "^0.45.2",
     "nuxt": "^4.4.2",
-    "postgres": "^3.4.9",
+    "pg": "^8.20.0",
     "vue": "^3.5.31",
     "vue-router": "^5.0.4"
   },
   "devDependencies": {
     "@types/node": "^25.5.2",
-    "typescript": "^6.0.2",
-    "vue-tsc": "^3.2.6"
+    "@types/pg": "^8.20.0",
+    "drizzle-kit": "^0.31.10",
+    "drizzle-seed": "^0.3.1",
+    "tsx": "^4.21.0"
   }
 }

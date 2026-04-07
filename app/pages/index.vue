@@ -1,11 +1,12 @@
 <script setup lang="ts">
-const { data: players } = await useFetch<Player[]>("/api/players");
+const { data: playerStats, refresh } =
+  await useFetch<PlayerStats[]>("/api/player-stats");
 </script>
 
 <template>
-  <div>Players: <NuxtLink to="/about">About Us</NuxtLink></div>
+  <div>Players: <a href="" @click.prevent="() => refresh()">Refresh</a></div>
 
   <ul>
-    <li v-for="player in players" :key="player.name">{{ player.name }}</li>
+    <li v-for="stats in playerStats" :key="stats.player">{{ stats.player }}</li>
   </ul>
 </template>
