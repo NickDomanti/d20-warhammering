@@ -1,14 +1,11 @@
 services:
   db:
-    image: mariadb:latest
+    image: postgres:latest
     container_name: d20-warhammering-dev-db
     restart: unless-stopped
     ports:
-      - "3306:3306"
+      - "5432:5432"
     env_file:
       - .env
     environment:
-      MARIADB_USER: ${MARIADB_USER}
-      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
-      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
-      MARIADB_DATABASE: d20_warhammering
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
