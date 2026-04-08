@@ -1,12 +1,18 @@
 <script setup lang="ts">
-const { data: playerStats, refresh } =
-  await useFetch<PlayerStats[]>("/api/player-stats");
+useHead({
+  title: "D20 Warhammering",
+});
 </script>
 
 <template>
-  <div>Players: <a href="" @click.prevent="() => refresh()">Refresh</a></div>
+  <UContainer class="h-svh flex flex-col justify-center items-center gap-4">
+    <div>
+      <NuxtImg src="/img/d20.webp" preload />
+      <NuxtImg src="/img/wh.webp" preload />
+    </div>
 
-  <ul>
-    <li v-for="stats in playerStats" :key="stats.player">{{ stats.player }}</li>
-  </ul>
+    <UButton>Classifica Lega</UButton>
+
+    <UButton color="secondary">Registra partita</UButton>
+  </UContainer>
 </template>
