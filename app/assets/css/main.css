@@ -6,3 +6,18 @@
   --ui-primary: #3b66c6;
   --ui-secondary: #da262c;
 }
+
+@layer base {
+  body {
+    background-image: url("/img/bg.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: left 40%;
+    background-position-y: center;
+    backdrop-filter: blur(8px);
+  }
+
+  button {
+    cursor: pointer;
+  }
+}

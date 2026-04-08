@@ -1,18 +1,15 @@
 <script setup lang="ts">
 useHead({
-  title: "D20 Warhammering",
+  title: "Home",
 });
 </script>
 
 <template>
-  <UContainer class="h-svh flex flex-col justify-center items-center gap-4">
-    <div>
-      <NuxtImg src="/img/d20.webp" preload />
-      <NuxtImg src="/img/wh.webp" preload />
-    </div>
+  <div class="flex gap-4">
+    <NuxtLink to="/ranking">
+      <UButton size="xl">Classifica Lega</UButton>
+    </NuxtLink>
 
-    <UButton>Classifica Lega</UButton>
-
-    <UButton color="secondary">Registra partita</UButton>
-  </UContainer>
+    <UButton size="xl" color="secondary">Registra partita</UButton>
+  </div>
 </template>
