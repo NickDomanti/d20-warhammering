@@ -1,4 +1,4 @@
-import { battlesTable, playersTable } from "~~/server/db/schema";
+import { battlesTable, playersTable } from '~~/server/db/schema';
 
 export type Player = typeof playersTable.$inferSelect;
 export type NewPlayer = typeof playersTable.$inferInsert;
@@ -22,6 +22,6 @@ export type PlayerStats = {
 
     opponentData: {
       name: string;
-    } & PlayerStats["battles"][0]["ownData"];
+    } & PlayerStats['battles'][0]['ownData'];
   }[];
 };

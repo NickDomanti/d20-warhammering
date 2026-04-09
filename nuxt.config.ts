@@ -1,20 +1,20 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2025-07-15",
+  compatibilityDate: '2025-07-15',
 
   devtools: { enabled: false },
 
   app: {
     head: {
-      titleTemplate: "%s | D20 Warhammering",
+      titleTemplate: '%s | D20 Warhammering',
     },
   },
 
-  css: ["~/assets/css/main.css"],
+  css: ['~/assets/css/main.css'],
 
-  modules: ["@nuxt/eslint", "@nuxt/hints", "@nuxt/image", "@nuxt/ui"],
+  modules: ['@nuxt/eslint', '@nuxt/hints', '@nuxt/image', '@nuxt/ui'],
 
   colorMode: {
-    preference: "dark",
+    preference: 'dark',
   },
 });

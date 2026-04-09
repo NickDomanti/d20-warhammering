@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "@nuxt/ui";
+@import 'tailwindcss';
+@import '@nuxt/ui';
 
 :root {
   --ui-bg: #1e222d;
@@ -9,7 +9,7 @@
 
 @layer base {
   body {
-    background-image: url("/img/bg.gif");
+    background-image: url('/img/bg.gif');
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: left 40%;

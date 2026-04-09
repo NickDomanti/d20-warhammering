@@ -70,12 +70,8 @@
           "tableFrom": "battles",
           "tableTo": "players",
           "schemaTo": "d20_warhammering",
-          "columnsFrom": [
-            "player1"
-          ],
-          "columnsTo": [
-            "name"
-          ],
+          "columnsFrom": ["player1"],
+          "columnsTo": ["name"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -84,12 +80,8 @@
           "tableFrom": "battles",
           "tableTo": "players",
           "schemaTo": "d20_warhammering",
-          "columnsFrom": [
-            "player2"
-          ],
-          "columnsTo": [
-            "name"
-          ],
+          "columnsFrom": ["player2"],
+          "columnsTo": ["name"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }

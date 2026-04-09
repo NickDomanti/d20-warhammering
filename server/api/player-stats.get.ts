@@ -1,7 +1,7 @@
-import { eq, or } from "drizzle-orm";
-import db from "~~/server/db";
-import { PlayerStats } from "~~/shared/types";
-import { battlesTable, playersTable } from "../db/schema";
+import { eq, or } from 'drizzle-orm';
+import db from '~~/server/db';
+import { PlayerStats } from '~~/shared/types';
+import { battlesTable, playersTable } from '../db/schema';
 
 export default eventHandler(async (): Promise<PlayerStats[]> => {
   const query = await db
@@ -23,8 +23,8 @@ export default eventHandler(async (): Promise<PlayerStats[]> => {
 
       const isPlayer1 = battles.player1 === name;
 
-      const ownId = isPlayer1 ? "player1" : "player2";
-      const opponentId = isPlayer1 ? "player2" : "player1";
+      const ownId = isPlayer1 ? 'player1' : 'player2';
+      const opponentId = isPlayer1 ? 'player2' : 'player1';
 
       const ownPoints = battles[`${ownId}Points`];
       const ownFaction = battles[`${ownId}Faction`];
@@ -51,7 +51,7 @@ export default eventHandler(async (): Promise<PlayerStats[]> => {
 
       return acc;
     },
-    {} as Record<string, PlayerStats["battles"]>,
+    {} as Record<string, PlayerStats['battles']>,
   );
 
   return Object.entries(record).map(

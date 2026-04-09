@@ -1,8 +1,8 @@
-import "dotenv/config";
-import { seed } from "drizzle-seed";
-import db from "..";
-import { ALLIANCES } from "../../../shared/utils/alliances";
-import * as schema from "../schema";
+import 'dotenv/config';
+import { seed } from 'drizzle-seed';
+import db from '..';
+import { ALLIANCES } from '../../../shared/utils/alliances';
+import * as schema from '../schema';
 
 async function main() {
   await seed(db, schema).refine((f) => ({

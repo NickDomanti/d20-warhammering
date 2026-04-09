@@ -1,9 +1,9 @@
 <script setup lang="ts">
 useHead({
-  title: "Classifica",
+  title: 'Classifica',
 });
 
-const { data: stats } = useFetch<PlayerStats[]>("/api/player-stats");
+const { data: stats } = useFetch<PlayerStats[]>('/api/player-stats');
 </script>
 
 <template>
