@@ -1,5 +1,10 @@
 export default defineAppConfig({
   ui: {
+    card: {
+      slots: {
+        body: '!p-4',
+      },
+    },
     button: {
       compoundVariants: [
         {

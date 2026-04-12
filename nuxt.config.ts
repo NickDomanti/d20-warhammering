@@ -7,6 +7,9 @@ export default defineNuxtConfig({
   app: {
     head: {
       titleTemplate: '%s | D20 Warhammering',
+      htmlAttrs: {
+        lang: 'it',
+      },
     },
   },
 

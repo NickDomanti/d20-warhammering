@@ -821,6 +821,13 @@
   dependencies:
     kleur "^4.0.0"
 
+"@iconify-json/material-symbols@^1.2.65":
+  version "1.2.65"
+  resolved "https://registry.yarnpkg.com/@iconify-json/material-symbols/-/material-symbols-1.2.65.tgz#4b410cbe585fcdf48797ec8f28a6e210dc8a620a"
+  integrity sha512-0kGO7z+yuWjn4de2gAz1hrOpDHN1rvnb1Lr3YnkmZr/pJ9bfLSv2bRXQo/nKx6oODXKcoYuFLcLvg2xPxMq5Pg==
+  dependencies:
+    "@iconify/types" "*"
+
 "@iconify/collections@^1.0.641":
   version "1.0.670"
   resolved "https://registry.yarnpkg.com/@iconify/collections/-/collections-1.0.670.tgz#99de3efd721108ef546c6ae832599acefb20af6a"

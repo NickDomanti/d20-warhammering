@@ -1,6 +1,5 @@
 import { eq, or } from 'drizzle-orm';
 import db from '~~/server/db';
-import { PlayerStats } from '~~/shared/types';
 import { battlesTable, playersTable } from '../db/schema';
 
 export default eventHandler(async (): Promise<PlayerStats[]> => {
@@ -51,10 +50,75 @@ export default eventHandler(async (): Promise<PlayerStats[]> => {
 
       return acc;
     },
-    {} as Record<string, PlayerStats['battles']>,
+    {} as Record<string, BattleStats[]>,
   );
 
-  return Object.entries(record).map(
-    ([player, battles]) => ({ player, battles }) satisfies PlayerStats,
-  );
+  return Object.entries(record)
+    .map(([player, battles]) => {
+      const { wins, losses, ties } = countBattles(battles);
+
+      const factions = getSortedFactions(battles, wins, losses, ties);
+
+      const winRate = calculateWinRate(wins, battles);
+
+      return {
+        player,
+        battles,
+        wins,
+        losses,
+        ties,
+        winRate,
+        factions,
+      } satisfies PlayerStats;
+    })
+    .sort((a, b) => b.winRate - a.winRate);
 });
+
+function countBattles(battles: BattleStats[]) {
+  const wins: BattleStats[] = [],
+    ties: BattleStats[] = [],
+    losses: BattleStats[] = [];
+
+  battles.forEach((b) => {
+    if (b.ownData.points > b.opponentData.points) wins.push(b);
+    else if (b.ownData.points < b.opponentData.points) losses.push(b);
+    else ties.push(b);
+  });
+
+  return { wins, ties, losses };
+}
+
+function getSortedFactions(
+  battles: BattleStats[],
+  wins: BattleStats[],
+  losses: BattleStats[],
+  ties: BattleStats[],
+) {
+  const factions = battles.map((b) => b.ownData.faction);
+
+  factions.sort((a, b) => {
+    const countA = factions.filter((f) => f === a).length;
+    const countB = factions.filter((f) => f === b).length;
+    return countB - countA;
+  });
+
+  const byFaction = (faction: string) => (b: BattleStats) =>
+    b.ownData.faction === faction;
+
+  return Array.from(new Set(factions)).map<PlayerStats['factions'][0]>(
+    (faction) => ({
+      name: faction,
+      wins: wins.filter(byFaction(faction)).length,
+      losses: losses.filter(byFaction(faction)).length,
+      ties: ties.filter(byFaction(faction)).length,
+      winRate: calculateWinRate(
+        wins.filter(byFaction(faction)),
+        battles.filter(byFaction(faction)),
+      ),
+    }),
+  );
+}
+
+function calculateWinRate(wins: BattleStats[], battles: BattleStats[]) {
+  return Math.round((wins.length * 100) / battles.length);
+}

@@ -7,7 +7,7 @@
     "dev": "docker compose up --build -d && nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
+    "prepare": "nuxt prepare",
     "migration:generate": "npx drizzle-kit generate --name",
     "migration:apply": "npx drizzle-kit migrate",
     "test:seed": "tsx ./server/db/test/seed.ts",
@@ -26,6 +26,7 @@
     "vue-router": "^5.0.4"
   },
   "devDependencies": {
+    "@iconify-json/material-symbols": "^1.2.65",
     "@types/node": "^25.5.2",
     "@types/pg": "^8.20.0",
     "drizzle-kit": "^0.31.10",

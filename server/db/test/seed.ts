@@ -5,7 +5,7 @@ import { ALLIANCES } from '../../../shared/utils/alliances';
 import * as schema from '../schema';
 
 async function main() {
-  await seed(db, schema).refine((f) => ({
+  await seed(db, schema, { count: 20 }).refine((f) => ({
     playersTable: {
       columns: {
         name: f.fullName({ isUnique: true }),
