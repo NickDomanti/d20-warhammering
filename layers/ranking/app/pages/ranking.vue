@@ -27,11 +27,20 @@ async function scrollIntoAccordionItem(indexStr?: string | string[]) {
 
 <template>
   <UCard class="w-full overflow-auto" :ui="{ body: '!py-2' }">
-    <UAccordion v-if="items.length" :items :unmount-on-hide="false" :ui="{ label: 'text-lg' }"
-      @update:model-value="scrollIntoAccordionItem">
+    <UAccordion
+      v-if="items.length"
+      :items
+      :unmount-on-hide="false"
+      :ui="{ label: 'text-lg' }"
+      @update:model-value="scrollIntoAccordionItem"
+    >
       <template #leading="{ index }">
-        <UIcon v-if="index < 3" name="material-symbols:trophy" size="28px"
-          :class="['text-amber-300', 'text-blue-200 ', 'text-amber-500'][index]" />
+        <UIcon
+          v-if="index < 3"
+          name="material-symbols:trophy"
+          size="28px"
+          :class="['text-amber-300', 'text-blue-200 ', 'text-amber-500'][index]"
+        />
         <span class="text-lg" v-else>{{ index + 1 }}.</span>
       </template>
 
@@ -39,6 +48,8 @@ async function scrollIntoAccordionItem(indexStr?: string | string[]) {
         <RankingInfo :player="item" :class="'ranking-' + index" />
       </template>
     </UAccordion>
+
+    <RankingSkeleton v-if="pending" />
 
     <p v-else>Nessun dato disponibile</p>
   </UCard>
