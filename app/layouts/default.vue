@@ -11,7 +11,7 @@ const props = defineProps<{ isHome?: boolean }>();
       <NuxtLink
         to="/"
         class="flex flex-col items-center"
-        :class="isHome ? 'w-100' : 'w-50'"
+        :class="isHome ? 'w-75' : 'w-50'"
       >
         <NuxtImg src="/img/d20.webp" />
         <NuxtImg src="/img/wh.webp" />
