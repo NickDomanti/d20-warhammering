@@ -1,1 +1,1 @@
-export default `postgresql://postgres:${process.env.POSTGRES_PASSWORD}@localhost:5432/d20_warhammering`;
+export default process.env.POSTGRES_URL;

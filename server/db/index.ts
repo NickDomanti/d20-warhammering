@@ -1,5 +1,7 @@
-import { drizzle } from 'drizzle-orm/node-postgres';
+import { neon } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/neon-http';
 import connection from './connection';
 import * as schema from './schema';
 
-export default drizzle({ schema, connection, casing: 'snake_case' });
+const client = neon(connection);
+export default drizzle({ schema, client, casing: 'snake_case' });
