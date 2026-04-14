@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "yarn migration:apply && nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -11,7 +11,8 @@
     "migration:generate": "npx drizzle-kit generate --name",
     "migration:apply": "npx drizzle-kit migrate",
     "test:seed": "tsx ./server/db/test/seed.ts",
-    "test:reset": "tsx ./server/db/test/reset.ts"
+    "test:reset": "tsx ./server/db/test/reset.ts",
+    "prod": "dotenv -e .env.prod -- yarn"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
@@ -31,6 +32,7 @@
     "@iconify-json/material-symbols": "^1.2.65",
     "@types/node": "^25.5.2",
     "@types/pg": "^8.20.0",
+    "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.10",
     "drizzle-seed": "^0.3.1",
     "tsx": "^4.21.0"
