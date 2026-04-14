@@ -20,4 +20,18 @@ export default defineNuxtConfig({
   colorMode: {
     preference: 'dark',
   },
+
+  ui: {
+    theme: {
+      colors: [
+        'primary',
+        'secondary',
+        'dark',
+        'info',
+        'success',
+        'warning',
+        'error',
+      ],
+    },
+  },
 });

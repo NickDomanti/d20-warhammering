@@ -17,6 +17,11 @@ export default defineAppConfig({
           variant: 'solid',
           class: 'text-white',
         },
+        {
+          color: 'dark',
+          variant: 'solid',
+          class: 'text-white',
+        },
       ],
     },
   },
