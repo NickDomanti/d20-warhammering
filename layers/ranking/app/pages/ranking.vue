@@ -49,7 +49,7 @@ async function scrollIntoAccordionItem(indexStr?: string | string[]) {
       </template>
 
       <template #body="{ item, index }">
-        <RankingInfo :player="item" :class="'ranking-' + index" />
+        <RankingInfo :stats="item" :class="'ranking-' + index" />
       </template>
     </UAccordion>
   </UCard>

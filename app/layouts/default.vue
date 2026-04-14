@@ -8,20 +8,23 @@ const props = defineProps<{ isHome?: boolean }>();
       class="h-svh flex flex-col items-center gap-4 py-8"
       :class="{ 'justify-center': isHome }"
     >
-      <div
+      <NuxtLink
+        to="/"
         class="flex flex-col items-center"
         :class="isHome ? 'w-100' : 'w-50'"
       >
         <NuxtImg src="/img/d20.webp" />
         <NuxtImg src="/img/wh.webp" />
-      </div>
+      </NuxtLink>
 
       <UButton
         v-if="!isHome"
         to="/"
         size="sm"
         icon="material-symbols:arrow-left-alt-rounded"
-        >Torna alla Home
+        color="dark"
+      >
+        Torna alla Home
       </UButton>
 
       <slot />

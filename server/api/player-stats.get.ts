@@ -55,7 +55,7 @@ export default eventHandler(async (): Promise<PlayerStats[]> => {
 
   return Object.entries(record)
     .map(([player, battles]) => {
-      const { wins, losses, ties } = countBattles(battles);
+      const { wins, losses, ties } = countandSortBattles(battles);
 
       const factions = getSortedFactions(battles, wins, losses, ties);
 
@@ -74,10 +74,14 @@ export default eventHandler(async (): Promise<PlayerStats[]> => {
     .sort((a, b) => b.winRate - a.winRate);
 });
 
-function countBattles(battles: BattleStats[]) {
+function countandSortBattles(battles: BattleStats[]) {
   const wins: BattleStats[] = [],
     ties: BattleStats[] = [],
     losses: BattleStats[] = [];
+
+  battles.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
 
   battles.forEach((b) => {
     if (b.ownData.points > b.opponentData.points) wins.push(b);
