@@ -26,12 +26,15 @@ async function scrollIntoAccordionItem(indexStr?: string | string[]) {
 </script>
 
 <template>
-  <UCard class="w-full overflow-auto" :ui="{ body: '!py-2' }">
+  <UCard
+    v-if="items.length"
+    class="overflow-auto w-full"
+    :ui="{ body: '!py-2' }"
+  >
     <UAccordion
-      v-if="items.length"
       :items
       :unmount-on-hide="false"
-      :ui="{ label: 'text-lg' }"
+      :ui="{ label: 'text-lg truncate' }"
       @update:model-value="scrollIntoAccordionItem"
     >
       <template #leading="{ index }">
@@ -39,7 +42,8 @@ async function scrollIntoAccordionItem(indexStr?: string | string[]) {
           v-if="index < 3"
           name="material-symbols:trophy"
           size="28px"
-          :class="['text-amber-300', 'text-blue-200 ', 'text-amber-500'][index]"
+          class="shrink-0"
+          :class="['text-amber-300', 'text-blue-200', 'text-amber-500'][index]"
         />
         <span class="text-lg" v-else>{{ index + 1 }}.</span>
       </template>
@@ -48,8 +52,13 @@ async function scrollIntoAccordionItem(indexStr?: string | string[]) {
         <RankingInfo :player="item" :class="'ranking-' + index" />
       </template>
     </UAccordion>
+  </UCard>
 
-    <RankingSkeleton v-if="pending" />
+  <UCard v-else>
+    <div v-if="pending" class="flex flex-col items-center justify-center gap-2">
+      <UIcon name="svg-spinners:pulse-rings-multiple" class="size-25" />
+      <p class="text-center text-semibold">Caricamento classifica...</p>
+    </div>
 
     <p v-else>Nessun dato disponibile</p>
   </UCard>

@@ -1,19 +1,3 @@
-export type BattleStats = {
-  date: Date | string;
-
-  budget: number;
-
-  ownData: {
-    points: number;
-    alliance: string;
-    faction: string;
-  };
-
-  opponentData: {
-    name: string;
-  } & BattleStats['ownData'];
-};
-
 export type PlayerStats = {
   player: string;
 
@@ -32,4 +16,20 @@ export type PlayerStats = {
   losses: BattleStats[];
   ties: BattleStats[];
   winRate: number;
+};
+
+export type BattleStats = {
+  date: Date | string;
+
+  budget: number;
+
+  ownData: {
+    points: number;
+    alliance: string;
+    faction: string;
+  };
+
+  opponentData: {
+    name: string;
+  } & BattleStats['ownData'];
 };

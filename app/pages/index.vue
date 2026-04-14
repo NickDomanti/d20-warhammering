@@ -2,13 +2,18 @@
 useHead({
   title: 'Home',
 });
+
+definePageMeta({
+  layout: {
+    name: 'default',
+    props: { isHome: true },
+  },
+});
 </script>
 
 <template>
   <div class="flex gap-4">
-    <NuxtLink to="/ranking">
-      <UButton size="xl">Classifica Lega</UButton>
-    </NuxtLink>
+    <UButton to="/ranking" size="xl">Classifica Lega</UButton>
 
     <UButton size="xl" color="secondary">Registra partita</UButton>
   </div>
