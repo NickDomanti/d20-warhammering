@@ -6,9 +6,7 @@ defineProps<{
 
 <template>
   <UModal :title="stats.player" description="Lista battaglie">
-    <div class="flex sm:justify-end">
-      <UButton color="dark">Vedi lista</UButton>
-    </div>
+    <UButton color="dark">Vedi lista</UButton>
 
     <template #body>
       <div class="flex flex-col gap-4">

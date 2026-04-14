@@ -19,7 +19,9 @@ defineProps<{
         :ties="stats.ties.length"
       />
 
-      <BattlesModalButton :stats class="mt-3" />
+      <div class="flex justify-end">
+        <BattlesModalButton :stats class="mt-3" />
+      </div>
     </UCard>
 
     <UCard variant="secondary">
