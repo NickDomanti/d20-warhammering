@@ -59,6 +59,8 @@ export const ALLIANCES = [
   factions: string[];
 }[];
 
+export const FACTIONS = ALLIANCES.flatMap((a) => a.factions);
+
 export function getAllianceByFaction(faction: string) {
   const alliance = ALLIANCES.find((a) => a.factions.includes(faction));
   if (!alliance) throw new Error(`Faction ${faction} does not exist`);

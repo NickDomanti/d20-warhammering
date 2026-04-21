@@ -9,12 +9,8 @@ defineProps<{
     <UButton color="dark">Vedi lista</UButton>
 
     <template #body>
-      <div class="flex flex-col gap-4">
-        <BattleInfo
-          v-for="battle of stats.battles"
-          :player="stats.player"
-          :battle
-        />
+      <div class="space-y-4">
+        <BattleInfo v-for="battle of stats.battles" :player="stats.player" :battle />
       </div>
     </template>
   </UModal>

@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import { reset } from 'drizzle-seed';
 import db from '..';
-import { ALLIANCES } from '../../../shared/utils/alliances';
 import * as schema from '../schema';
 
 const PLAYER_NAMES = [
@@ -29,8 +28,6 @@ const PLAYER_NAMES = [
 
 const BUDGETS = [500, 1000, 1500, 2000];
 
-const ALL_FACTIONS = ALLIANCES.flatMap((a) => a.factions);
-
 function pick<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]!;
 }
@@ -50,18 +47,18 @@ async function main() {
   // Assign each player 1 faction, ~20% chance of a 2nd
   const playerFactions = new Map<string, string[]>();
   for (const name of PLAYER_NAMES) {
-    const primary = pick(ALL_FACTIONS);
+    const primary = pick(FACTIONS);
     const factions = [primary];
     if (Math.random() < 0.2) {
-      const secondary = pick(ALL_FACTIONS.filter((f) => f !== primary));
+      const secondary = pick(FACTIONS.filter((f) => f !== primary));
       factions.push(secondary);
     }
     playerFactions.set(name, factions);
   }
 
-  await db.insert(schema.playersTable).values(
-    PLAYER_NAMES.map((name) => ({ name })),
-  );
+  await db
+    .insert(schema.playersTable)
+    .values(PLAYER_NAMES.map((name) => ({ name })));
 
   function makeBattle(p1: string, p2: string) {
     return {

@@ -1,6 +1,6 @@
 import { eq, or } from 'drizzle-orm';
 import db from '~~/server/db';
-import { battlesTable, playersTable } from '../db/schema';
+import { battlesTable, playersTable } from '~~/server/db/schema';
 
 export default eventHandler(async (): Promise<PlayerStats[]> => {
   const query = await db
