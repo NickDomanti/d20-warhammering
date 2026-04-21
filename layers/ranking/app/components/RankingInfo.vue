@@ -20,7 +20,9 @@ defineProps<{
       />
 
       <div class="flex justify-end">
-        <BattlesModalButton :stats class="mt-3" />
+        <BattlesModal :stats>
+          <UButton color="dark">Vedi lista</UButton>
+        </BattlesModal>
       </div>
     </UCard>
 

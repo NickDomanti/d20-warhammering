@@ -10,12 +10,21 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'it',
       },
+      bodyAttrs: {
+        class: 'h-svh',
+      },
     },
   },
 
   css: ['~/assets/css/main.css'],
 
-  modules: ['@nuxt/eslint', '@nuxt/hints', '@nuxt/image', '@nuxt/ui'],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/hints',
+    '@nuxt/image',
+    '@nuxt/ui',
+    'nuxt-auth-utils',
+  ],
 
   colorMode: {
     preference: 'dark',
@@ -27,6 +36,7 @@ export default defineNuxtConfig({
         'primary',
         'secondary',
         'dark',
+        'night',
         'info',
         'success',
         'warning',

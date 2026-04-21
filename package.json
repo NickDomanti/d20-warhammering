@@ -23,6 +23,7 @@
     "dotenv": "^17.4.1",
     "drizzle-orm": "^0.45.2",
     "nuxt": "^4.4.2",
+    "nuxt-auth-utils": "0.5.29",
     "pg": "^8.20.0",
     "vue": "^3.5.31",
     "vue-router": "^5.0.4"
@@ -35,6 +36,8 @@
     "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.10",
     "drizzle-seed": "^0.3.1",
-    "tsx": "^4.21.0"
+    "ofetch": "^1.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
   }
 }

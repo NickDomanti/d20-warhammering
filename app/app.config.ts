@@ -28,6 +28,11 @@ export default defineAppConfig({
           variant: 'solid',
           class: 'text-white',
         },
+        {
+          color: 'night',
+          variant: 'solid',
+          class: 'text-white',
+        },
       ],
     },
     badge: {
@@ -42,6 +47,10 @@ export default defineAppConfig({
         },
         {
           color: 'dark',
+          class: 'text-white',
+        },
+        {
+          color: 'night',
           class: 'text-white',
         },
       ],

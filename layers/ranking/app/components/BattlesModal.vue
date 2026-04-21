@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <UModal :title="stats.player" description="Lista battaglie">
-    <UButton color="dark">Vedi lista</UButton>
+    <slot />
 
     <template #body>
       <div class="space-y-4">

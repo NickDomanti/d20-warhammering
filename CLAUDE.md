@@ -6,6 +6,7 @@ Based on what you'll be working on, you need to refer to the appropriate documen
 ### General:
 
 - nuxt.md
+- practices.md
 
 ### Frontend:
 

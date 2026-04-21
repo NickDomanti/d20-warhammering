@@ -10,6 +10,7 @@
 
 @theme static {
   --color-dark: var(--ui-dark);
+  --color-night: var(--ui-bg);
 }
 
 @layer base {
@@ -20,9 +21,14 @@
     background-position-x: left 40%;
     background-position-y: center;
     backdrop-filter: blur(8px);
+    overflow: hidden;
   }
 
   button {
     cursor: pointer;
+  }
+
+  [data-reka-popper-content-wrapper] > div {
+    @apply bg-dark!;
   }
 }

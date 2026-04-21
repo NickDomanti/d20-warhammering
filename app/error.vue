@@ -10,9 +10,10 @@ const props = defineProps<{ error: NuxtError }>();
 
 <template>
   <UError
+    class="h-svh"
     :error
     :ui="{
-      statusCode: 'text-white bg-primary px-2 py-1 rounded',
+      statusCode: 'text-lg text-white bg-secondary px-2 py-1 rounded',
     }"
   />
 </template>
