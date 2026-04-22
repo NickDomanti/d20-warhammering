@@ -10,7 +10,11 @@ defineProps<{
 
     <template #body>
       <div class="space-y-4">
-        <BattleInfo v-for="battle of stats.battles" :player="stats.player" :battle />
+        <BattleInfo
+          v-for="battle of stats.battles"
+          :player="stats.player"
+          :battle
+        />
       </div>
     </template>
   </UModal>

@@ -63,28 +63,39 @@ async function deleteBattle(id: number, close: () => void) {
 <template>
   <AdminTable :data :columns :pending :ui="{ td: 'space-x-2' }">
     <template #date-header="{ column }">
-      <UButton color="neutral" variant="ghost" :icon="getSortIcon(column.getIsSorted())"
-        @click="handleTableColumnSorting(column)">
+      <UButton
+        color="neutral"
+        variant="ghost"
+        :icon="getSortIcon(column.getIsSorted())"
+        @click="handleTableColumnSorting(column)"
+      >
         Data
       </UButton>
     </template>
 
     <template #players-cell="{ row }">
-      <UBadge :icon="{
-          0: BattleOutcomeIcons.TIE,
-          1: BattleOutcomeIcons.WIN,
-          2: BattleOutcomeIcons.LOSS,
-        }[getWinner(row)]
-        ">
+      <UBadge
+        :icon="
+          {
+            0: BattleOutcomeIcons.TIE,
+            1: BattleOutcomeIcons.WIN,
+            2: BattleOutcomeIcons.LOSS,
+          }[getWinner(row)]
+        "
+      >
         {{ row.original.player1 }}
       </UBadge>
 
-      <UBadge color="secondary" :icon="{
-          0: BattleOutcomeIcons.TIE,
-          1: BattleOutcomeIcons.LOSS,
-          2: BattleOutcomeIcons.WIN,
-        }[getWinner(row)]
-        ">
+      <UBadge
+        color="secondary"
+        :icon="
+          {
+            0: BattleOutcomeIcons.TIE,
+            1: BattleOutcomeIcons.LOSS,
+            2: BattleOutcomeIcons.WIN,
+          }[getWinner(row)]
+        "
+      >
         {{ row.original.player2 }}
       </UBadge>
     </template>
@@ -105,9 +116,13 @@ async function deleteBattle(id: number, close: () => void) {
           <UButton color="dark" icon="material-symbols:edit" />
         </UTooltip>
 
-        <ConfirmModal description="Confermi di voler eliminare questa battaglia dai record?" confirm-text="Elimina"
-          confirm-color="secondary" :confirm-pending="deletingId === row.original.id"
-          @confirm="(close) => deleteBattle(row.original.id, close)">
+        <ConfirmModal
+          description="Confermi di voler eliminare questa battaglia dai record?"
+          confirm-text="Elimina"
+          confirm-color="secondary"
+          :confirm-pending="deletingId === row.original.id"
+          @confirm="(close) => deleteBattle(row.original.id, close)"
+        >
           <UTooltip text="Elimina">
             <UButton color="dark" icon="material-symbols:delete" />
           </UTooltip>
