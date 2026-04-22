@@ -30,15 +30,8 @@ const ui = computed(() => {
 </script>
 
 <template>
-  <UTable
-    v-bind="$props"
-    :loading="pending"
-    :loading-color="pendingColor"
-    :loading-animation="pendingAnimation"
-    :ui
-    class="w-full bg-night rounded-lg"
-    sticky
-  >
+  <UTable v-bind="$props" :loading="pending" :loading-color="pendingColor" :loading-animation="pendingAnimation" :ui
+    class="w-full bg-night rounded-lg" sticky>
     <template v-for="(_, name) in $slots" #[name]="slotData">
       <slot :name v-bind="slotData" />
     </template>

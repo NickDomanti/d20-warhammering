@@ -2,15 +2,16 @@
 @import '@nuxt/ui';
 
 :root {
-  --ui-bg: #1e222d;
-  --ui-primary: #3b66c6;
-  --ui-secondary: #da262c;
-  --ui-dark: rgb(0 0 0 / 0.25);
+  --ui-bg: rgb(30 34 45);
+  --ui-text: rgb(255 255 255);
+  --ui-primary: rgb(59 102 198);
+  --ui-secondary: rgb(218 38 44);
 }
 
 @theme static {
-  --color-dark: var(--ui-dark);
+  --color-dark: rgb(0 0 0 / 0.25);
   --color-night: var(--ui-bg);
+  --color-abyss: rgb(22 25 34);
 }
 
 @layer base {
@@ -26,9 +27,5 @@
 
   button {
     cursor: pointer;
-  }
-
-  [data-reka-popper-content-wrapper] > div {
-    @apply bg-dark!;
   }
 }

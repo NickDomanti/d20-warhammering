@@ -16,7 +16,7 @@ const {
 </script>
 
 <template>
-  <UCard variant="solid" class="text-white" :class="BATTLE_OUTCOMES[ownOutcome].colors.bg" :ui="{ body: 'px-3!' }">
+  <UCard variant="solid" :class="BATTLE_OUTCOMES[ownOutcome].colors.bg" :ui="{ body: 'px-3!' }">
     <div class="flex flex-col gap-2">
       <div class="grid grid-cols-2 gap-2">
         <UBadge color="dark" size="lg" class="justify-center text-center col-span-2"

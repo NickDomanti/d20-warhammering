@@ -37,6 +37,7 @@ export default defineNuxtConfig({
         'secondary',
         'dark',
         'night',
+        'abyss',
         'info',
         'success',
         'warning',

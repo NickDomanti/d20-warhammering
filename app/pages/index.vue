@@ -15,6 +15,8 @@ definePageMeta({
   <div class="flex gap-4">
     <UButton to="/ranking" size="xl">Classifica Lega</UButton>
 
-    <BattleFormModalButton />
+    <BattleFormModal>
+      <UButton size="xl" color="secondary">Registra partita</UButton>
+    </BattleFormModal>
   </div>
 </template>

@@ -20,7 +20,7 @@ const winRateColor = computed(() => {
       {{ winRate }}%
     </UBadge>
 
-    <UBadge color="dark" class="text-white">
+    <UBadge color="dark">
       <span class="text-success">{{ wins }}</span> /
       <span class="text-error">{{ losses }}</span> /
       <span class="text-warning">{{ ties }}</span>

@@ -33,6 +33,11 @@ export default defineAppConfig({
           variant: 'solid',
           class: 'text-white',
         },
+        {
+          color: 'abyss',
+          variant: 'solid',
+          class: 'text-white',
+        },
       ],
     },
     badge: {
@@ -53,7 +58,21 @@ export default defineAppConfig({
           color: 'night',
           class: 'text-white',
         },
+        {
+          color: 'abyss',
+          class: 'text-white',
+        },
       ],
+    },
+    tooltip: {
+      slots: {
+        content: 'bg-abyss',
+      },
+    },
+    select: {
+      slots: {
+        content: 'bg-abyss',
+      },
     },
   },
 });

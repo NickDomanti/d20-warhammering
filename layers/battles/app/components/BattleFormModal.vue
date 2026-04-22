@@ -60,7 +60,7 @@ function onError(err: FormErrorEvent) {
 
 <template>
   <UModal title="Registra partita" description="La partità verrà aggiunta al database">
-    <UButton size="xl" color="secondary">Registra partita</UButton>
+    <slot />
 
     <template #body>
       <UForm :state :schema="formSchema" class="space-y-4" @submit="onSubmit" @error="onError">

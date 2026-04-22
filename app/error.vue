@@ -9,11 +9,7 @@ const props = defineProps<{ error: NuxtError }>();
 </script>
 
 <template>
-  <UError
-    class="h-svh"
-    :error
-    :ui="{
-      statusCode: 'text-lg text-white bg-secondary px-2 py-1 rounded',
-    }"
-  />
+  <UError class="h-svh" :error :ui="{
+    statusCode: 'text-white bg-secondary px-3 py-2 rounded-md',
+  }" />
 </template>
