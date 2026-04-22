@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CalendarDate, getLocalTimeZone, today } from '@internationalized/date';
-import type { FormErrorEvent, FormSubmitEvent } from '@nuxt/ui';
+import type { FormSubmitEvent } from '@nuxt/ui';
 import * as v from 'valibot';
 
 const BUDGET_OPTIONS = [500, 1000, 1500, 2000];
@@ -56,18 +56,28 @@ const state = shallowReactive<FormSchema>({
 });
 
 const toast = useToast();
-async function onSubmit(event: FormSubmitEvent<FormSchema>) {
+const open = defineModel<boolean>('open', { default: false });
+
+async function onSubmit({
+  data: { date, ...body },
+}: FormSubmitEvent<FormSchema>) {
+  const { success } = await fetchApi('/api/battles', {
+    method: 'POST',
+    body: {
+      ...body,
+      date: date.toDate(getLocalTimeZone()),
+    },
+  });
+
+  if (!success) return;
+
   toast.add({
     title: 'Success',
     description: 'The form has been submitted.',
     color: 'success',
   });
 
-  console.log(event.data);
-}
-
-function onError(err: FormErrorEvent) {
-  console.log(...err.errors);
+  open.value = false;
 }
 
 const uInputDate = useTemplateRef('uInputDate');
@@ -75,19 +85,14 @@ const uInputDate = useTemplateRef('uInputDate');
 
 <template>
   <UModal
+    v-model:open="open"
     title="Registra partita"
     description="La partità verrà aggiunta al database"
   >
     <slot />
 
     <template #body>
-      <UForm
-        :state
-        :schema="formSchema"
-        class="space-y-4"
-        @submit="onSubmit"
-        @error="onError"
-      >
+      <UForm :state :schema="formSchema" class="space-y-4" @submit="onSubmit">
         <UFormField label="Data partita" name="date">
           <UInputDate ref="uInputDate" v-model="state.date" class="w-50">
             <template #trailing>

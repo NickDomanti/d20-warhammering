@@ -1,5 +1,9 @@
+<script setup lang="ts">
+import { it } from '@nuxt/ui/locale';
+</script>
+
 <template>
-  <UApp :tooltip="{ delayDuration: 0 }">
+  <UApp :locale="it" :tooltip="{ delayDuration: 0 }">
     <NuxtRouteAnnouncer />
     <NuxtLayout>
       <NuxtPage />

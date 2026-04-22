@@ -3,8 +3,6 @@ import db from '~~/server/db';
 import { battlesTable } from '~~/server/db/schema';
 
 export default eventHandler(async (event) => {
-  await delay(1000);
-
   const id = Number(getRouterParam(event, 'id'));
 
   if (!Number.isInteger(id)) {
