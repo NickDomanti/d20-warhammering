@@ -53,7 +53,7 @@ async function deleteBattle(id: number, close: () => void) {
 
   if (!success) return;
 
-  toast.add({ title: 'Battaglia eliminata' });
+  toast.add({ title: 'Partita eliminata' });
 
   refresh();
   close();
@@ -112,12 +112,14 @@ async function deleteBattle(id: number, close: () => void) {
 
     <template #actions-cell="{ row }">
       <div class="flex justify-center gap-2">
-        <UTooltip text="Modifica">
-          <UButton color="dark" icon="material-symbols:edit" />
-        </UTooltip>
+        <BattleFormModal :state="row.original" @submit="() => refresh()">
+          <UTooltip text="Modifica">
+            <UButton color="dark" icon="material-symbols:edit" />
+          </UTooltip>
+        </BattleFormModal>
 
         <ConfirmModal
-          description="Confermi di voler eliminare questa battaglia dai record?"
+          description="Confermi di voler eliminare questa Partita dai record?"
           confirm-text="Elimina"
           confirm-color="secondary"
           :confirm-pending="deletingId === row.original.id"

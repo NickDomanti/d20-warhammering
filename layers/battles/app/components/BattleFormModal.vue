@@ -8,18 +8,29 @@ import {
 import type { Form, FormSubmitEvent } from '@nuxt/ui';
 import InputDate from '~/components/InputDate.vue';
 
-const getDefaultState = (): NewBattle => ({
-  budget: 1000,
-  date: today(getLocalTimeZone()).toString(),
+const props = defineProps<{
+  state?: Battle;
+}>();
 
-  player1: '',
-  player1Points: 0,
-  player1Faction: '',
+const emit = defineEmits<{
+  submit: [data: FormSubmitEvent<NewBattle>];
+}>();
 
-  player2: '',
-  player2Points: 0,
-  player2Faction: '',
-});
+const isEditMode = computed(() => !!props.state?.id);
+
+const getDefaultState = (): NewBattle =>
+  props.state ?? {
+    budget: 1000,
+    date: today(getLocalTimeZone()).toString(),
+
+    player1: '',
+    player1Points: 0,
+    player1Faction: '',
+
+    player2: '',
+    player2Points: 0,
+    player2Faction: '',
+  };
 
 const state = ref<NewBattle>(getDefaultState());
 
@@ -41,25 +52,29 @@ watch(open, (v) => {
 
 const submitting = ref(false);
 
-async function onSubmit({ data }: FormSubmitEvent<NewBattle>) {
+async function onSubmit(event: FormSubmitEvent<NewBattle>) {
   submitting.value = true;
 
-  const { success } = await fetchApi('/api/battles', {
-    method: 'POST',
-    body: data,
-  });
+  const { success } = await fetchApi(
+    '/api/battles' + (isEditMode.value ? `/${props.state!.id}` : ''),
+    {
+      method: isEditMode.value ? 'PUT' : 'POST',
+      body: event.data,
+    },
+  );
 
   submitting.value = false;
 
   if (!success) return;
 
   toast.add({
-    title: 'Success',
-    description: 'The form has been submitted.',
+    title: 'Partita registrata',
     color: 'success',
   });
 
   open.value = false;
+
+  emit('submit', event);
 }
 
 const FORM_STEPS = ['common', 'player1', 'player2'] as const;
@@ -72,7 +87,6 @@ const STEP_FIELDS: Record<FormStep, Exclude<keyof NewBattle, 'id'>[]> = {
 };
 
 const formStep = ref<FormStep>('common');
-const isLastStep = computed(() => formStep.value === FORM_STEPS.at(-1));
 
 const uForm = useTemplateRef<Form<typeof battleSchema>>('uForm');
 
@@ -115,7 +129,7 @@ watch(() => state.value.player2, assumeFactionForPlayer(2));
   <UModal
     v-model:open="open"
     title="Registra partita"
-    description="La partità verrà aggiunta al database"
+    :description="`La partità verrà ${isEditMode ? 'modificata nel' : 'aggiunta al'} database`"
     :ui="{ content: 'h-125' }"
   >
     <slot />
