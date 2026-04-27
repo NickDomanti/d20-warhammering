@@ -71,7 +71,7 @@ export default eventHandler(async (): Promise<PlayerStats[]> => {
         factions,
       } satisfies PlayerStats;
     })
-    .sort((a, b) => b.winRate - a.winRate);
+    .sort((a, b) => calculateScore(b) - calculateScore(a));
 });
 
 function countandSortBattles(battles: BattleStats[]) {
@@ -125,4 +125,8 @@ function getSortedFactions(
 
 function calculateWinRate(wins: BattleStats[], battles: BattleStats[]) {
   return Math.round((wins.length * 100) / battles.length);
+}
+
+function calculateScore(stat: PlayerStats) {
+  return stat.wins.length * 2 + stat.ties.length;
 }
