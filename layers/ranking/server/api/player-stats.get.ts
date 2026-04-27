@@ -132,5 +132,13 @@ function calculateWinRate(wins: BattleStats[], battles: BattleStats[]) {
 }
 
 function calculateScore(stat: PlayerStats) {
-  return stat.wins.length * 2 + stat.ties.length;
+  let p3 = 0,
+    p2 = 0;
+
+  stat.wins.forEach((w) => {
+    if (w.ownData.points > w.opponentData.points * (4 / 3)) p3++;
+    else p2++;
+  });
+
+  return p3 * 3 + p2 * 2 + stat.ties.length;
 }
