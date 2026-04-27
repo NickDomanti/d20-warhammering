@@ -39,11 +39,17 @@ watch(open, (v) => {
   state.value = getDefaultState();
 });
 
+const submitting = ref(false);
+
 async function onSubmit({ data }: FormSubmitEvent<NewBattle>) {
+  submitting.value = true;
+
   const { success } = await fetchApi('/api/battles', {
     method: 'POST',
     body: data,
   });
+
+  submitting.value = false;
 
   if (!success) return;
 
@@ -66,6 +72,7 @@ const STEP_FIELDS: Record<FormStep, Exclude<keyof NewBattle, 'id'>[]> = {
 };
 
 const formStep = ref<FormStep>('common');
+const isLastStep = computed(() => formStep.value === FORM_STEPS.at(-1));
 
 const uForm = useTemplateRef<Form<typeof battleSchema>>('uForm');
 
@@ -183,6 +190,7 @@ watch(() => state.value.player2, assumeFactionForPlayer(2));
             v-if="formStep === FORM_STEPS.at(-1)"
             type="submit"
             trailing-icon="material-symbols:upload"
+            :loading="submitting"
           >
             Invia
           </UButton>
