@@ -3,7 +3,7 @@ import type { TableColumn } from '@nuxt/ui';
 
 useHead({ title: 'Gestione giocatori' });
 
-const { data, pending: loading } = useFetchApi('/api/admin/players');
+const { data, pending: loading } = useFetchApi('/api/players');
 
 const columns: TableColumn<Player>[] = [
   {

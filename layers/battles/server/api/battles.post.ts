@@ -1,9 +1,14 @@
 import db from '~~/server/db';
-import { battlesTable } from '~~/server/db/schema';
-import { NewBattle } from '~~/shared/types/battle';
+import { battlesTable, playersTable } from '~~/server/db/schema';
+import { battleSchema } from '~~/shared/types/battle';
 
 export default eventHandler(async (event) => {
-  const body: NewBattle = await readBody(event);
+  const body = await validateBody(event, battleSchema);
+
+  await db
+    .insert(playersTable)
+    .values([{ name: body.player1 }, { name: body.player2 }])
+    .onConflictDoNothing();
 
   const [inserted] = await db
     .insert(battlesTable)
