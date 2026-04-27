@@ -140,7 +140,7 @@ function calculateScore(wins: BattleStats[], ties: BattleStats[]) {
 
   wins.forEach((w) => {
     if (
-      w.ownData.points >= 20 &&
+      w.ownData.points - w.opponentData.points >= 20 &&
       w.ownData.points > w.opponentData.points * (4 / 3)
     )
       p3++;
