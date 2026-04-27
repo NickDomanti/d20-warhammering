@@ -71,7 +71,11 @@ export default eventHandler(async (): Promise<PlayerStats[]> => {
         factions,
       } satisfies PlayerStats;
     })
-    .sort((a, b) => calculateScore(b) - calculateScore(a));
+    .sort((a, b) => {
+      const scoreComparison = calculateScore(b) - calculateScore(a);
+      if (scoreComparison !== 0) return scoreComparison;
+      return b.winRate - a.winRate;
+    });
 });
 
 function countandSortBattles(battles: BattleStats[]) {
