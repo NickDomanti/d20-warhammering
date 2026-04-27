@@ -26,8 +26,6 @@ const PLAYER_NAMES = [
   'Tina Turner',
 ];
 
-const BUDGETS = [500, 1000, 1500, 2000];
-
 function pick<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]!;
 }

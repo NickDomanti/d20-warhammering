@@ -2,7 +2,7 @@
 const props = defineProps<{ isHome?: boolean }>();
 
 defineShortcuts({
-  meta_m() {
+  'meta_<': () => {
     navigateTo('/admin');
   },
 });

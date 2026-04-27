@@ -2,8 +2,7 @@
 import { CalendarDate, getLocalTimeZone, today } from '@internationalized/date';
 import type { FormSubmitEvent } from '@nuxt/ui';
 import * as v from 'valibot';
-
-const BUDGET_OPTIONS = [500, 1000, 1500, 2000];
+import InputDate from '~/components/InputDate.vue';
 
 const playerDataSchema = v.object({
   name: v.pipe(v.string(), v.nonEmpty("Questo sito non supporta l'anonimato")),
@@ -31,7 +30,7 @@ const formSchema = v.object({
       'Dubito che questa partita si sia svolta nel futuro',
     ),
   ),
-  budget: v.pipe(v.number(), v.values(BUDGET_OPTIONS)),
+  budget: v.pipe(v.number(), v.values(BUDGETS)),
   ownData: playerDataSchema,
   opponentData: playerDataSchema,
 });
@@ -79,8 +78,6 @@ async function onSubmit({
 
   open.value = false;
 }
-
-const uInputDate = useTemplateRef('uInputDate');
 </script>
 
 <template>
@@ -94,32 +91,11 @@ const uInputDate = useTemplateRef('uInputDate');
     <template #body>
       <UForm :state :schema="formSchema" class="space-y-4" @submit="onSubmit">
         <UFormField label="Data partita" name="date">
-          <UInputDate ref="uInputDate" v-model="state.date" class="w-50">
-            <template #trailing>
-              <UPopover :reference="uInputDate?.inputsRef[3]?.$el">
-                <UButton
-                  color="neutral"
-                  variant="link"
-                  size="sm"
-                  icon="lucide:calendar"
-                  aria-label="Select a date"
-                  class="px-0"
-                />
-
-                <template #content>
-                  <UCalendar v-model="state.date" class="p-2" />
-                </template>
-              </UPopover>
-            </template>
-          </UInputDate>
+          <InputDate v-model="state.date" />
         </UFormField>
 
         <UFormField label="Punti partita" name="budget">
-          <USelect
-            v-model="state.budget"
-            :items="BUDGET_OPTIONS"
-            class="w-50"
-          />
+          <USelect v-model="state.budget" :items="BUDGETS" class="w-50" />
         </UFormField>
 
         <USeparator />
