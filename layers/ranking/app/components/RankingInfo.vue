@@ -6,23 +6,28 @@ defineProps<{
 
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-    <UCard variant="primary">
-      <div class="mb-2 flex justify-between items-center">
-        <p class="font-semibold text-lg">Partite</p>
-      </div>
+    <UCard variant="primary" :ui="{ body: 'h-full' }">
+      <div class="flex justify-between h-full">
+        <div class="space-y-1">
+          <div class="flex justify-between items-center">
+            <p class="font-semibold text-lg">Partite</p>
+          </div>
 
-      <BattlesShortSummary
-        variant="primary"
-        :win-rate="stats.winRate"
-        :wins="stats.wins.length"
-        :losses="stats.losses.length"
-        :ties="stats.ties.length"
-      />
+          <BattlesShortSummary
+            variant="primary"
+            :score="stats.score"
+            :win-rate="stats.winRate"
+            :wins="stats.wins.length"
+            :losses="stats.losses.length"
+            :ties="stats.ties.length"
+          />
+        </div>
 
-      <div class="flex justify-end">
-        <BattlesModal :stats>
-          <UButton color="dark">Vedi lista</UButton>
-        </BattlesModal>
+        <div class="flex items-end">
+          <BattlesModal :stats>
+            <UButton color="dark" class="whitespace-nowrap">Vedi lista</UButton>
+          </BattlesModal>
+        </div>
       </div>
     </UCard>
 

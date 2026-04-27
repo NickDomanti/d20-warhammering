@@ -61,6 +61,8 @@ export default eventHandler(async (): Promise<PlayerStats[]> => {
 
       const winRate = calculateWinRate(wins, battles);
 
+      const score = calculateScore(wins, ties);
+
       return {
         player,
         battles,
@@ -69,10 +71,11 @@ export default eventHandler(async (): Promise<PlayerStats[]> => {
         ties,
         winRate,
         factions,
+        score,
       } satisfies PlayerStats;
     })
     .sort((a, b) => {
-      const scoreComparison = calculateScore(b) - calculateScore(a);
+      const scoreComparison = b.score - a.score;
       if (scoreComparison !== 0) return scoreComparison;
       return b.winRate - a.winRate;
     });
@@ -131,14 +134,18 @@ function calculateWinRate(wins: BattleStats[], battles: BattleStats[]) {
   return Math.round((wins.length * 100) / battles.length);
 }
 
-function calculateScore(stat: PlayerStats) {
+function calculateScore(wins: BattleStats[], ties: BattleStats[]) {
   let p3 = 0,
     p2 = 0;
 
-  stat.wins.forEach((w) => {
-    if (w.ownData.points > w.opponentData.points * (4 / 3)) p3++;
+  wins.forEach((w) => {
+    if (
+      w.ownData.points >= 20 &&
+      w.ownData.points > w.opponentData.points * (4 / 3)
+    )
+      p3++;
     else p2++;
   });
 
-  return p3 * 3 + p2 * 2 + stat.ties.length;
+  return p3 * 3 + p2 * 2 + ties.length;
 }

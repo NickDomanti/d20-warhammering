@@ -16,6 +16,7 @@ export type PlayerStats = {
   losses: BattleStats[];
   ties: BattleStats[];
   winRate: number;
+  score: number;
 };
 
 export type BattleStats = {
