@@ -16,7 +16,7 @@ const winRateColor = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-wrap items-center gap-1">
+  <div class="flex items-center gap-1 mb-1">
     <UBadge color="dark" :class="`text-${winRateColor}`">
       {{ winRate }}%
     </UBadge>
@@ -26,13 +26,12 @@ const winRateColor = computed(() => {
       <span class="text-error">{{ losses }}</span> /
       <span class="text-warning">{{ ties }}</span>
     </UBadge>
-
-    <UBadge
-      v-if="score != null"
-      color="dark"
-      :trailing-icon="BattleOutcomeIcons.WIN"
-    >
-      {{ score }} Punti Lega
-    </UBadge>
   </div>
+  <UBadge
+    v-if="score != null"
+    color="dark"
+    :trailing-icon="BattleOutcomeIcons.WIN"
+  >
+    {{ score }} Punti Lega
+  </UBadge>
 </template>
