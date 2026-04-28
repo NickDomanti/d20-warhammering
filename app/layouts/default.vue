@@ -2,9 +2,7 @@
 const props = defineProps<{ isHome?: boolean }>();
 
 defineShortcuts({
-  'meta_<': () => {
-    navigateTo('/admin');
-  },
+  'meta_<': () => navigateTo('/admin'),
 });
 </script>
 
@@ -15,8 +13,8 @@ defineShortcuts({
   >
     <NuxtLink
       to="/"
-      class="flex flex-col items-center"
-      :class="isHome ? 'w-75' : 'w-50'"
+      class="flex flex-col justify-center items-center"
+      :class="isHome ? 'w-70' : 'w-30 md:w-50'"
     >
       <NuxtImg src="/img/d20.webp" />
       <NuxtImg src="/img/wh.webp" />

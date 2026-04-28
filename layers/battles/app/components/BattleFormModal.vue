@@ -18,8 +18,9 @@ const emit = defineEmits<{
 
 const isEditMode = computed(() => !!props.state?.id);
 
-const getDefaultState = (): NewBattle =>
-  props.state ?? {
+function getDefaultState(): NewBattle {
+  if (props.state) return { ...props.state };
+  return {
     budget: 1000,
     date: today(getLocalTimeZone()).toString(),
 
@@ -31,6 +32,7 @@ const getDefaultState = (): NewBattle =>
     player2Points: 0,
     player2Faction: '',
   };
+}
 
 const state = ref<NewBattle>(getDefaultState());
 
