@@ -16,10 +16,7 @@ async function logout() {
 
 <template>
   <UContainer class="h-svh flex flex-col items-center gap-4 py-8">
-    <NuxtLink to="/" class="flex flex-col items-center w-50">
-      <NuxtImg src="/img/d20.webp" />
-      <NuxtImg src="/img/wh.webp" />
-    </NuxtLink>
+    <HeaderLogos small />
 
     <div class="flex gap-2">
       <UButton to="/" size="sm" icon="material-symbols:home" color="dark">

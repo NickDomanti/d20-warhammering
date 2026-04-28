@@ -11,16 +11,7 @@ defineShortcuts({
     class="h-svh flex flex-col items-center gap-4 pt-4 pb-10"
     :class="{ 'justify-center': isHome }"
   >
-    <header>
-      <NuxtLink
-        to="/"
-        class="flex flex-col justify-center items-center"
-        :class="isHome ? 'w-70' : 'w-30 md:w-50'"
-      >
-        <NuxtImg src="/img/d20.webp" />
-        <NuxtImg src="/img/wh.webp" />
-      </NuxtLink>
-    </header>
+    <HeaderLogos :small="!isHome" />
 
     <UButton
       v-if="!isHome"
