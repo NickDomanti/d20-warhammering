@@ -55,7 +55,7 @@ export default eventHandler(async (): Promise<PlayerStats[]> => {
 
   return Object.entries(record)
     .map(([player, battles]) => {
-      const { wins, losses, ties } = countandSortBattles(battles);
+      const { wins, losses, ties } = countAndSortBattles(battles);
 
       const factions = getSortedFactions(battles, wins, losses, ties);
 
@@ -77,11 +77,15 @@ export default eventHandler(async (): Promise<PlayerStats[]> => {
     .sort((a, b) => {
       const scoreComparison = b.score - a.score;
       if (scoreComparison !== 0) return scoreComparison;
-      return b.winRate - a.winRate;
+
+      const winRateComparison = b.winRate - a.winRate;
+      if (winRateComparison !== 0) return winRateComparison;
+
+      return calculateTotalPoints(b) - calculateTotalPoints(a);
     });
 });
 
-function countandSortBattles(battles: BattleStats[]) {
+function countAndSortBattles(battles: BattleStats[]) {
   const wins: BattleStats[] = [],
     ties: BattleStats[] = [],
     losses: BattleStats[] = [];
@@ -139,13 +143,13 @@ function calculateScore(wins: BattleStats[], ties: BattleStats[]) {
     p2 = 0;
 
   wins.forEach((w) => {
-    if (
-      w.ownData.points - w.opponentData.points >= 20 &&
-      w.ownData.points > w.opponentData.points * (4 / 3)
-    )
-      p3++;
+    if (isDecisiveVictory(w)) p3++;
     else p2++;
   });
 
   return p3 * 3 + p2 * 2 + ties.length;
+}
+
+function calculateTotalPoints(stats: PlayerStats) {
+  return stats.battles.reduce((acc, curr) => acc + curr.ownData.points, 0);
 }
