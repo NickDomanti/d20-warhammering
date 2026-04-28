@@ -18,10 +18,18 @@ definePageMeta({
         <UIcon name="material-symbols:settings" class="mt-0.5" />
         Admin Dashboard
       </h1>
-      <div class="grid grid-cols-2 gap-4">
-        <UButton to="/admin/battles" size="xl">Gestisci battaglie</UButton>
-        <UButton to="/admin/players" size="xl" color="secondary">
-          Gestisci giocatori
+
+      <div class="grid grid-cols-2 gap-4 *:justify-center">
+        <UButton to="/admin/battles" size="xl" color="dark">Partite</UButton>
+
+        <UButton to="/admin/players" size="xl" color="dark">
+          Giocatori
+        </UButton>
+
+        <UButton to="/admin/seasons" size="xl" color="dark">Stagioni</UButton>
+
+        <UButton to="/admin/categories" size="xl" color="dark">
+          Categorie
         </UButton>
       </div>
     </div>

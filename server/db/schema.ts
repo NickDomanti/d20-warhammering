@@ -5,6 +5,17 @@ import { date, integer, pgSchema, serial, text } from 'drizzle-orm/pg-core';
 // as Drizzle's migration schema in drizzle.config.ts
 const d20schema = pgSchema('d20_warhammering');
 
+export const seasonsTable = d20schema.table('seasons', {
+  name: text().primaryKey(),
+
+  description: text().notNull(),
+
+  coverImage: text().notNull(),
+
+  startDate: date(),
+  endDate: date(),
+});
+
 export const playersTable = d20schema.table('players', {
   name: text().primaryKey(),
 });
@@ -16,15 +27,26 @@ export const battlesTable = d20schema.table('battles', {
 
   date: date().notNull(),
 
+  season: text().references(() => seasonsTable.name, {
+    onDelete: 'set null',
+    onUpdate: 'cascade',
+  }),
+
   player1: text()
     .notNull()
-    .references(() => playersTable.name),
+    .references(() => playersTable.name, {
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    }),
   player1Points: integer().notNull(),
   player1Faction: text().notNull(),
 
   player2: text()
     .notNull()
-    .references(() => playersTable.name),
+    .references(() => playersTable.name, {
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    }),
   player2Points: integer().notNull(),
   player2Faction: text().notNull(),
 });
