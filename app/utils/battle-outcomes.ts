@@ -5,9 +5,9 @@ export enum BattleOutcomes {
 }
 
 export enum BattleOutcomeIcons {
-  WIN = 'material-symbols:crown',
-  LOSS = 'material-symbols:skull',
-  TIE = 'material-symbols:equal',
+  WIN = AppIcons.CROWN,
+  LOSS = AppIcons.SKULL,
+  TIE = AppIcons.EQUAL,
 }
 
 export const BATTLE_OUTCOMES = {
