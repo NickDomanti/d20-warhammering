@@ -46,7 +46,7 @@ async function deletePlayer(name: string, close: () => void) {
     <template #actions-cell="{ row }">
       <div class="flex justify-center gap-2">
         <UTooltip text="Modifica">
-          <UButton color="dark" icon="material-symbols:edit" />
+          <UButton color="dark" :icon="AppIcons.EDIT" />
         </UTooltip>
 
         <ConfirmModal
@@ -57,7 +57,7 @@ async function deletePlayer(name: string, close: () => void) {
           @confirm="(close) => deletePlayer(row.original.name, close)"
         >
           <UTooltip text="Elimina">
-            <UButton color="dark" icon="material-symbols:delete" />
+            <UButton color="dark" :icon="AppIcons.DELETE" />
           </UTooltip>
         </ConfirmModal>
       </div>

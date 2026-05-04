@@ -35,9 +35,7 @@ const columns: TableColumn<Season>[] = [
       <tr>
         <td colspan="4" class="p-4">
           <div class="flex justify-end">
-            <UButton icon="ph:globe-hemisphere-west"
-              >Crea nuova stagione</UButton
-            >
+            <UButton :icon="AppIcons.GLOBE">Crea nuova stagione</UButton>
           </div>
         </td>
       </tr>
@@ -50,10 +48,10 @@ const columns: TableColumn<Season>[] = [
     <template #actions-cell>
       <div class="flex justify-center gap-2">
         <UTooltip text="Modifica">
-          <UButton color="dark" icon="material-symbols:edit" />
+          <UButton color="dark" :icon="AppIcons.EDIT" />
         </UTooltip>
         <UTooltip text="Elimina">
-          <UButton color="dark" icon="material-symbols:delete" />
+          <UButton color="dark" :icon="AppIcons.DELETE" />
         </UTooltip>
       </div>
     </template>

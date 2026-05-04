@@ -45,7 +45,7 @@ const searchInput = ref('');
 <template>
   <UCard v-if="pending">
     <div class="flex flex-col items-center justify-center gap-2">
-      <UIcon name="svg-spinners:pulse-rings-multiple" class="size-25" />
+      <UIcon :name="AppIcons.SPINNER" class="size-25" />
       <p class="text-center text-semibold">Caricamento classifica...</p>
     </div>
   </UCard>
@@ -61,7 +61,7 @@ const searchInput = ref('');
       <UInput
         variant="none"
         v-model="searchInput"
-        icon="material-symbols:search"
+        :icon="AppIcons.SEARCH"
         placeholder="Cerca giocatore o fazione..."
         class="w-full"
       >
@@ -70,7 +70,7 @@ const searchInput = ref('');
             color="neutral"
             variant="link"
             size="sm"
-            icon="i-lucide-circle-x"
+            :icon="AppIcons.CIRCLE_X"
             aria-label="Clear input"
             @click="searchInput = ''"
           />
@@ -89,7 +89,7 @@ const searchInput = ref('');
       <template #leading="{ index }">
         <UIcon
           v-if="index < 3"
-          name="material-symbols:trophy"
+          :name="AppIcons.TROPHY"
           size="28px"
           class="shrink-0"
           :class="['text-amber-300', 'text-blue-200', 'text-amber-500'][index]"

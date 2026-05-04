@@ -8,7 +8,24 @@ export enum AppIcons {
   SORT_DESC = 'lucide:arrow-down-wide-narrow',
 
   TROPHY = 'material-symbols:trophy',
-  TROPHY_OUTLINE = 'material-symbols:trophy',
-}
+  TROPHY_OUTLINE = 'material-symbols:trophy-outline',
+  SWORDS_OUTLINE = 'material-symbols:swords-outline',
 
-export default function appIcon(icon: AppIcons, variant?: 'fill' | 'outline') {}
+  HOME = 'material-symbols:home',
+  ARROW_LEFT = 'material-symbols:arrow-left-alt',
+  ARROW_RIGHT = 'material-symbols:arrow-right-alt',
+
+  EDIT = 'material-symbols:edit',
+  DELETE = 'material-symbols:delete',
+  UPLOAD = 'material-symbols:upload',
+  SEARCH = 'material-symbols:search',
+  SETTINGS = 'material-symbols:settings',
+  LOCK_OPEN = 'material-symbols:lock-open-right',
+
+  CALENDAR = 'lucide:calendar',
+  CIRCLE_X = 'lucide:circle-x',
+
+  GLOBE = 'ph:globe-hemisphere-west',
+
+  SPINNER = 'svg-spinners:pulse-rings-multiple',
+}

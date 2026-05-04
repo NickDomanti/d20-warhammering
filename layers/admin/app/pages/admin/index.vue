@@ -15,7 +15,7 @@ definePageMeta({
   <UCard>
     <div class="space-y-4">
       <h1 class="text-xl text-center flex justify-center items-center gap-2">
-        <UIcon name="material-symbols:settings" class="mt-0.5" />
+        <UIcon :name="AppIcons.SETTINGS" class="mt-0.5" />
         Admin Dashboard
       </h1>
 

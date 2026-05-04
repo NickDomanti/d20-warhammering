@@ -17,7 +17,7 @@ defineShortcuts({
       v-if="!isHome"
       to="/"
       size="sm"
-      icon="material-symbols:home"
+      :icon="AppIcons.HOME"
       color="dark"
     >
       Home

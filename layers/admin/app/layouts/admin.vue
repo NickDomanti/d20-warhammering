@@ -19,7 +19,7 @@ async function logout() {
     <HeaderLogos small />
 
     <div class="flex gap-2">
-      <UButton to="/" size="sm" icon="material-symbols:home" color="dark">
+      <UButton to="/" size="sm" :icon="AppIcons.HOME" color="dark">
         Home
       </UButton>
 
@@ -27,7 +27,7 @@ async function logout() {
         v-if="!isDashboard"
         to="/admin"
         size="sm"
-        icon="material-symbols:settings"
+        :icon="AppIcons.SETTINGS"
         color="dark"
       >
         Dashboard
@@ -35,7 +35,7 @@ async function logout() {
 
       <UButton
         size="sm"
-        icon="material-symbols:lock-open-right"
+        :icon="AppIcons.LOCK_OPEN"
         color="dark"
         @click="logout"
       >

@@ -213,7 +213,7 @@ watch(() => state.value.player2, assumeFactionForPlayer(2));
           <UButton
             v-if="formStep !== FORM_STEPS[0]"
             color="dark"
-            icon="material-symbols:arrow-left-alt"
+            :icon="AppIcons.ARROW_LEFT"
             @click="prevStep"
           >
             Indietro
@@ -222,7 +222,7 @@ watch(() => state.value.player2, assumeFactionForPlayer(2));
           <UButton
             v-if="formStep === FORM_STEPS.at(-1)"
             type="submit"
-            trailing-icon="material-symbols:upload"
+            :trailing-icon="AppIcons.UPLOAD"
             :loading="submitting"
             :disabled="!isEditMode && !consentGiven"
           >
@@ -231,7 +231,7 @@ watch(() => state.value.player2, assumeFactionForPlayer(2));
           <UButton
             v-else
             color="dark"
-            trailing-icon="material-symbols:arrow-right-alt"
+            :trailing-icon="AppIcons.ARROW_RIGHT"
             @click="nextStep"
           >
             Avanti

@@ -18,7 +18,7 @@ const uInputDate = useTemplateRef('uInputDate');
           color="neutral"
           variant="link"
           size="sm"
-          icon="lucide:calendar"
+          :icon="AppIcons.CALENDAR"
           aria-label="Seleziona una data"
           class="px-0"
         />

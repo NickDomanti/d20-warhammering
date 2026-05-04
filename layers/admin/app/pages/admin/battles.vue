@@ -114,7 +114,7 @@ async function deleteBattle(id: number, close: () => void) {
       <div class="flex justify-center gap-2">
         <BattleFormModal :state="row.original" @submit="() => refresh()">
           <UTooltip text="Modifica">
-            <UButton color="dark" icon="material-symbols:edit" />
+            <UButton color="dark" :icon="AppIcons.EDIT" />
           </UTooltip>
         </BattleFormModal>
 
@@ -126,7 +126,7 @@ async function deleteBattle(id: number, close: () => void) {
           @confirm="(close) => deleteBattle(row.original.id, close)"
         >
           <UTooltip text="Elimina">
-            <UButton color="dark" icon="material-symbols:delete" />
+            <UButton color="dark" :icon="AppIcons.DELETE" />
           </UTooltip>
         </ConfirmModal>
       </div>

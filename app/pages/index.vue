@@ -13,7 +13,7 @@ definePageMeta({
 
 <template>
   <div class="flex flex-wrap justify-center gap-4">
-    <UButton to="/ranking" size="xl" icon="material-symbols:trophy-outline">
+    <UButton to="/ranking" size="xl" :icon="AppIcons.TROPHY_OUTLINE">
       Classifica Lega
     </UButton>
 
@@ -21,7 +21,7 @@ definePageMeta({
       <UButton
         size="xl"
         color="secondary"
-        icon="material-symbols:swords-outline"
+        :icon="AppIcons.SWORDS_OUTLINE"
       >
         Registra partita
       </UButton>
