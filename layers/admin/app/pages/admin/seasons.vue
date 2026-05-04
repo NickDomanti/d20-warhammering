@@ -30,7 +30,7 @@ const columns: TableColumn<Season>[] = [
 </script>
 
 <template>
-  <AdminTable :data :columns :loading>
+  <AdminTable :data :columns :loading searchable>
     <template #body-bottom>
       <tr>
         <td colspan="4" class="p-4">

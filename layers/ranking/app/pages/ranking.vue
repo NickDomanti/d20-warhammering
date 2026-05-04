@@ -1,31 +1,27 @@
 <script setup lang="ts">
-import type { AccordionItem } from '@nuxt/ui';
-
 useHead({
   title: 'Classifica',
 });
 
 const { data: stats, pending } = useFetch<PlayerStats[]>('/api/player-stats');
 
-const items = computed<(AccordionItem & PlayerStats)[]>(() =>
-  (stats.value ?? [])
-    .filter((s) => {
-      if (!s.battles.length) return false;
+const items = computed<PlayerStats[]>(() =>
+  (stats.value ?? []).filter((s) => {
+    if (!s.battles.length) return false;
 
-      const searchTerm = searchInput.value.trim().toLowerCase();
-      if (!searchTerm) return true;
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    if (!searchTerm) return true;
 
-      const playerMatch = s.player.toLowerCase().includes(searchTerm);
-      if (playerMatch) return true;
+    const playerMatch = s.player.toLowerCase().includes(searchTerm);
+    if (playerMatch) return true;
 
-      const factionMatch = s.factions.some((f) =>
-        f.name.toLowerCase().includes(searchTerm),
-      );
-      if (factionMatch) return true;
+    const factionMatch = s.factions.some((f) =>
+      f.name.toLowerCase().includes(searchTerm),
+    );
+    if (factionMatch) return true;
 
-      return false;
-    })
-    .map((s) => ({ ...s, label: s.player })),
+    return false;
+  }),
 );
 
 async function scrollIntoAccordionItem(indexStr?: string | string[]) {
@@ -58,29 +54,16 @@ const searchInput = ref('');
     <div
       class="sticky top-0 -mx-4 p-2 bg-night border-b border-b-accented z-10"
     >
-      <UInput
-        variant="none"
+      <SearchInput
         v-model="searchInput"
-        :icon="AppIcons.SEARCH"
         placeholder="Cerca giocatore o fazione..."
-        class="w-full"
-      >
-        <template v-if="searchInput.length" #trailing>
-          <UButton
-            color="neutral"
-            variant="link"
-            size="sm"
-            :icon="AppIcons.CIRCLE_X"
-            aria-label="Clear input"
-            @click="searchInput = ''"
-          />
-        </template>
-      </UInput>
+      />
     </div>
 
     <UAccordion
       v-if="items.length"
       value-key="player"
+      label-key="player"
       :items
       :unmount-on-hide="false"
       :ui="{ label: 'text-lg truncate' }"

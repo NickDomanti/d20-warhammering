@@ -10,7 +10,11 @@ const uInput = useTemplateRef('uInput');
 
 const toast = useToast();
 
+const loading = ref(false);
+
 async function submit() {
+  loading.value = true;
+
   const res = await fetchApi('/api/admin/login', {
     method: 'POST',
     body: { password: password.value },
@@ -25,6 +29,8 @@ async function submit() {
   }
 
   delay(10).then(() => uInput.value?.inputRef?.focus());
+
+  loading.value = false;
 }
 </script>
 
@@ -47,7 +53,7 @@ async function submit() {
           class="grow"
           autofocus
         />
-        <UButton type="submit">Entra</UButton>
+        <UButton type="submit" :loading>Entra</UButton>
       </UForm>
     </div>
   </UCard>

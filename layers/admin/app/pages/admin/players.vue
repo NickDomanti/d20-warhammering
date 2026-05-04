@@ -42,7 +42,7 @@ async function deletePlayer(name: string, close: () => void) {
 </script>
 
 <template>
-  <AdminTable :data :columns :loading>
+  <AdminTable :data :columns :loading searchable>
     <template #actions-cell="{ row }">
       <div class="flex justify-center gap-2">
         <UTooltip text="Modifica">

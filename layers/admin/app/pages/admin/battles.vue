@@ -7,11 +7,13 @@ const { data, pending, refresh } = useFetchApi('/api/admin/battles');
 
 const columns: TableColumn<Battle>[] = [
   {
-    accessorKey: 'date',
-    cell: ({ row }) => formatDate(row.original.date),
+    id: 'date',
+    header: 'Data',
+    accessorFn: (row) => formatDate(row.date),
     meta: { class: { th: 'w-30' } },
   },
   {
+    accessorFn: (row) => `${row.player1}\n${row.player2}`,
     id: 'players',
     header: 'Giocatori',
     meta: { class: { th: 'w-100' } },
@@ -22,6 +24,7 @@ const columns: TableColumn<Battle>[] = [
     meta: { class: { th: 'w-30' } },
   },
   {
+    accessorFn: (row) => `${row.player1Faction}\n${row.player2Faction}`,
     id: 'factions',
     header: 'Fazioni',
   },
@@ -61,7 +64,14 @@ async function deleteBattle(id: number, close: () => void) {
 </script>
 
 <template>
-  <AdminTable :data :columns :pending :ui="{ td: 'space-x-2' }">
+  <AdminTable
+    :data
+    :columns
+    :pending
+    :ui="{ td: 'space-x-2' }"
+    searchable
+    search-placeholder="Cerca giocatore, fazione o data..."
+  >
     <template #date-header="{ column }">
       <UButton
         color="neutral"

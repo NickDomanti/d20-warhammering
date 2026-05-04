@@ -19,16 +19,40 @@ definePageMeta({
         Admin Dashboard
       </h1>
 
-      <div class="grid grid-cols-2 gap-4 *:justify-center">
-        <UButton to="/admin/battles" size="xl" color="dark">Partite</UButton>
+      <div class="grid grid-cols-4 gap-4 *:justify-center">
+        <UButton
+          to="/admin/battles"
+          size="xl"
+          color="dark"
+          :icon="AppIcons.SWORDS"
+        >
+          Partite
+        </UButton>
 
-        <UButton to="/admin/players" size="xl" color="dark">
+        <UButton
+          to="/admin/players"
+          size="xl"
+          color="dark"
+          :icon="AppIcons.USER"
+        >
           Giocatori
         </UButton>
 
-        <UButton to="/admin/seasons" size="xl" color="dark">Stagioni</UButton>
+        <UButton
+          to="/admin/seasons"
+          size="xl"
+          color="dark"
+          :icon="AppIcons.GLOBE_FILL"
+        >
+          Stagioni
+        </UButton>
 
-        <UButton to="/admin/categories" size="xl" color="dark">
+        <UButton
+          to="/admin/categories"
+          size="xl"
+          color="dark"
+          :icon="AppIcons.VIDEOGAME"
+        >
           Categorie
         </UButton>
       </div>
