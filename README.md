@@ -21,7 +21,7 @@ yarn dev
 Build the application for production:
 
 ```bash
-yarn dev
+yarn build
 ```
 
 Locally preview production build:
