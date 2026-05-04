@@ -44,12 +44,15 @@ const date = computed<CalendarDate>({
 const toast = useToast();
 const open = defineModel<boolean>('open', { default: false });
 
+const consentGiven = ref(false);
+
 watch(open, (v) => {
   if (!v) return;
 
   // Reset form
   formStep.value = 'common';
   state.value = getDefaultState();
+  consentGiven.value = false;
 });
 
 const submitting = ref(false);
@@ -186,6 +189,15 @@ watch(() => state.value.player2, assumeFactionForPlayer(2));
           >
             <UInputNumber v-model="state.player2Points" class="w-50" />
           </UFormField>
+
+          <UCheckbox v-if="!isEditMode" v-model="consentGiven" class="mt-2">
+            <template #label>
+              Ho letto la
+              <ULink to="/privacy" target="_blank">privacy policy</ULink>
+              e ho il consenso del giocatore avversario al trattamento dei suoi
+              dati per la registrazione della partita.
+            </template>
+          </UCheckbox>
         </template>
 
         <div class="grow"></div>
@@ -207,6 +219,7 @@ watch(() => state.value.player2, assumeFactionForPlayer(2));
             type="submit"
             trailing-icon="material-symbols:upload"
             :loading="submitting"
+            :disabled="!isEditMode && !consentGiven"
           >
             Invia
           </UButton>

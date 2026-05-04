@@ -13,6 +13,7 @@ export default defineNuxtConfig({
       bodyAttrs: {
         class: 'h-svh',
       },
+      meta: [{ name: 'robots', content: 'noindex, nofollow' }],
     },
   },
 
