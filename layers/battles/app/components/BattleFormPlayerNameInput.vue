@@ -11,6 +11,7 @@ const model = defineModel<string>();
     :trailing-icon="false"
     :content="{ hideWhenEmpty: true }"
     autocomplete
+    autofocus
     class="w-50"
   />
 </template>

@@ -36,6 +36,8 @@ export const battleSchema = v.pipe(
       ),
     ),
 
+    season: v.nullish(v.string()),
+
     player1: playerName,
     player1Points: playerPoints,
     player1Faction: playerFaction,

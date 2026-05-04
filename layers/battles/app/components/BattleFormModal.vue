@@ -5,7 +5,7 @@ import {
   parseDate,
   today,
 } from '@internationalized/date';
-import type { Form, FormSubmitEvent } from '@nuxt/ui';
+import type { Form, FormErrorEvent, FormSubmitEvent } from '@nuxt/ui';
 import InputDate from '~/components/InputDate.vue';
 
 const props = defineProps<{
@@ -55,33 +55,6 @@ watch(open, (v) => {
   consentGiven.value = false;
 });
 
-const submitting = ref(false);
-
-async function onSubmit(event: FormSubmitEvent<NewBattle>) {
-  submitting.value = true;
-
-  const { success } = await fetchApi(
-    '/api/battles' + (isEditMode.value ? `/${props.state!.id}` : ''),
-    {
-      method: isEditMode.value ? 'PUT' : 'POST',
-      body: event.data,
-    },
-  );
-
-  submitting.value = false;
-
-  if (!success) return;
-
-  toast.add({
-    title: 'Partita registrata',
-    color: 'success',
-  });
-
-  open.value = false;
-
-  emit('submit', event);
-}
-
 const FORM_STEPS = ['common', 'player1', 'player2'] as const;
 type FormStep = (typeof FORM_STEPS)[number];
 
@@ -109,6 +82,37 @@ async function nextStep() {
   }
 
   formStep.value = FORM_STEPS[FORM_STEPS.indexOf(formStep.value) + 1]!;
+}
+
+const submitting = ref(false);
+
+async function onSubmit(event: FormSubmitEvent<NewBattle>) {
+  submitting.value = true;
+
+  const { success } = await fetchApi(
+    '/api/battles' + (isEditMode.value ? `/${props.state!.id}` : ''),
+    {
+      method: isEditMode.value ? 'PUT' : 'POST',
+      body: event.data,
+    },
+  );
+
+  submitting.value = false;
+
+  if (!success) return;
+
+  toast.add({
+    title: 'Partita registrata',
+    color: 'success',
+  });
+
+  open.value = false;
+
+  emit('submit', event);
+}
+
+function onError(event: FormErrorEvent) {
+  console.error(...event.errors);
 }
 
 const { data: playerStats } = useFetchApi('/api/player-stats');
@@ -146,10 +150,11 @@ watch(() => state.value.player2, assumeFactionForPlayer(2));
         :schema="battleSchema"
         class="flex flex-col gap-4 h-full"
         @submit="onSubmit"
+        @error="onError"
       >
         <template v-if="formStep === 'common'">
           <UFormField label="Data partita" name="date">
-            <InputDate v-model="date" />
+            <InputDate v-model="date" autofocus />
           </UFormField>
           <UFormField label="Punti partita" name="budget">
             <USelect v-model="state.budget" :items="BUDGETS" class="w-50" />
