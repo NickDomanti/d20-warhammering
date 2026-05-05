@@ -19,7 +19,7 @@ definePageMeta({
         Admin Dashboard
       </h1>
 
-      <div class="grid grid-cols-4 gap-4 *:justify-center">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 *:justify-center">
         <UButton
           to="/admin/battles"
           size="xl"

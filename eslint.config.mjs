@@ -1,5 +1,17 @@
 // @ts-check
 import withNuxt from './.nuxt/eslint.config.mjs';
 
-export default withNuxt();
-// Your custom configs here
+export default withNuxt([
+  {
+    files: ['**/*.ts', '**/*.vue'],
+    rules: {
+      'vue/require-default-prop': 'off',
+
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+    },
+  },
+]);

@@ -5,21 +5,21 @@ import {
   parseDate,
   today,
 } from '@internationalized/date';
-import type { Form, FormErrorEvent, FormSubmitEvent } from '@nuxt/ui';
+import type { FormSubmitEvent } from '@nuxt/ui';
 import InputDate from '~/components/InputDate.vue';
 
 const props = defineProps<{
-  state?: Battle;
+  battle?: Battle;
 }>();
 
 const emit = defineEmits<{
-  submit: [data: FormSubmitEvent<NewBattle>];
+  submit: [];
 }>();
 
-const isEditMode = computed(() => !!props.state?.id);
+const isEditMode = computed(() => !!props.battle?.id);
 
 function getDefaultState(): NewBattle {
-  if (props.state) return { ...props.state };
+  if (props.battle) return { ...props.battle };
   return {
     budget: 1000,
     date: today(getLocalTimeZone()).toString(),
@@ -34,7 +34,7 @@ function getDefaultState(): NewBattle {
   };
 }
 
-const state = ref<NewBattle>(getDefaultState());
+const state = ref(getDefaultState());
 
 const date = computed<CalendarDate>({
   get: () => parseDate(state.value.date),
@@ -42,20 +42,17 @@ const date = computed<CalendarDate>({
 });
 
 const toast = useToast();
-const open = defineModel<boolean>('open', { default: false });
+const open = ref(false);
 
 const consentGiven = ref(false);
 
-watch(open, (v) => {
-  if (!v) return;
-
-  // Reset form
-  formStep.value = 'common';
+function resetForm() {
+  console.log('reset form');
   state.value = getDefaultState();
   consentGiven.value = false;
-});
+}
 
-const FORM_STEPS = ['common', 'player1', 'player2'] as const;
+const FORM_STEPS = ['common', 'player1', 'player2'];
 type FormStep = (typeof FORM_STEPS)[number];
 
 const STEP_FIELDS: Record<FormStep, Exclude<keyof NewBattle, 'id'>[]> = {
@@ -64,40 +61,20 @@ const STEP_FIELDS: Record<FormStep, Exclude<keyof NewBattle, 'id'>[]> = {
   player2: ['player2', 'player2Faction', 'player2Points'],
 };
 
-const formStep = ref<FormStep>('common');
-
-const uForm = useTemplateRef<Form<typeof battleSchema>>('uForm');
-
-function prevStep() {
-  uForm.value?.clear();
-
-  formStep.value = FORM_STEPS[FORM_STEPS.indexOf(formStep.value) - 1]!;
-}
-
-async function nextStep() {
-  try {
-    await uForm.value?.validate({ name: STEP_FIELDS[formStep.value] });
-  } catch {
-    return;
-  }
-
-  formStep.value = FORM_STEPS[FORM_STEPS.indexOf(formStep.value) + 1]!;
-}
-
-const submitting = ref(false);
+const loading = ref(false);
 
 async function onSubmit(event: FormSubmitEvent<NewBattle>) {
-  submitting.value = true;
+  loading.value = true;
 
   const { success } = await fetchApi(
-    '/api/battles' + (isEditMode.value ? `/${props.state!.id}` : ''),
+    '/api/battles' + (isEditMode.value ? `/${props.battle!.id}` : ''),
     {
       method: isEditMode.value ? 'PUT' : 'POST',
       body: event.data,
     },
   );
 
-  submitting.value = false;
+  loading.value = false;
 
   if (!success) return;
 
@@ -108,11 +85,7 @@ async function onSubmit(event: FormSubmitEvent<NewBattle>) {
 
   open.value = false;
 
-  emit('submit', event);
-}
-
-function onError(event: FormErrorEvent) {
-  console.error(...event.errors);
+  emit('submit');
 }
 
 const { data: playerStats } = useFetchApi('/api/player-stats');
@@ -135,109 +108,75 @@ watch(() => state.value.player2, assumeFactionForPlayer(2));
 </script>
 
 <template>
-  <UModal
+  <FormModal
     v-model:open="open"
     title="Registra partita"
-    :description="`La partità verrà ${isEditMode ? 'modificata nel' : 'aggiunta al'} database`"
-    :ui="{ content: 'h-125' }"
+    :description="`La partita verrà ${isEditMode ? 'modificata nel' : 'aggiunta al'} database`"
+    :schema="battleSchema"
+    :state
+    :steps="FORM_STEPS"
+    :step-fields="STEP_FIELDS"
+    :loading
+    :disabled="!isEditMode && !consentGiven"
+    :modal-ui="{ content: 'h-125' }"
+    @submit="onSubmit"
+    @open="resetForm"
   >
     <slot />
 
-    <template #body>
-      <UForm
-        ref="uForm"
-        :state
-        :schema="battleSchema"
-        class="flex flex-col gap-4 h-full"
-        @submit="onSubmit"
-        @error="onError"
-      >
-        <template v-if="formStep === 'common'">
-          <UFormField label="Data partita" name="date">
-            <InputDate v-model="date" autofocus />
-          </UFormField>
-          <UFormField label="Punti partita" name="budget">
-            <USelect v-model="state.budget" :items="BUDGETS" class="w-50" />
-          </UFormField>
-        </template>
+    <template #fields="{ step }">
+      <template v-if="step === 'common'">
+        <UFormField label="Data partita" name="date">
+          <InputDate v-model="date" autofocus />
+        </UFormField>
+        <UFormField label="Punti partita" name="budget">
+          <USelect v-model="state.budget" :items="BUDGETS" class="w-50" />
+        </UFormField>
+      </template>
 
-        <template v-else-if="formStep === 'player1'">
-          <UFormField label="Tuo nome" name="player1">
-            <BattleFormPlayerNameInput v-model="state.player1" :players />
-          </UFormField>
-          <UFormField label="Tua fazione" name="player1Faction">
-            <USelectMenu
-              v-model="state.player1Faction"
-              :items="FACTIONS"
-              class="w-50"
-            />
-          </UFormField>
-          <UFormField label="Quanti punti hai fatto?" name="player1Points">
-            <UInputNumber v-model="state.player1Points" class="w-50" />
-          </UFormField>
-        </template>
+      <template v-else-if="step === 'player1'">
+        <UFormField label="Tuo nome" name="player1">
+          <BattleFormPlayerNameInput v-model="state.player1" :players />
+        </UFormField>
+        <UFormField label="Tua fazione" name="player1Faction">
+          <USelectMenu
+            v-model="state.player1Faction"
+            :items="FACTIONS"
+            class="w-50"
+          />
+        </UFormField>
+        <UFormField label="Quanti punti hai fatto?" name="player1Points">
+          <UInputNumber v-model="state.player1Points" class="w-50" />
+        </UFormField>
+      </template>
 
-        <template v-else>
-          <UFormField label="Nome avversario" name="player2">
-            <BattleFormPlayerNameInput v-model="state.player2" :players />
-          </UFormField>
-          <UFormField label="Fazione avversario" name="player2Faction">
-            <USelectMenu
-              v-model="state.player2Faction"
-              :items="FACTIONS"
-              class="w-50"
-            />
-          </UFormField>
-          <UFormField
-            label="Quanti punti ha fatto l'avversario?"
-            name="player2Points"
-          >
-            <UInputNumber v-model="state.player2Points" class="w-50" />
-          </UFormField>
+      <template v-else>
+        <UFormField label="Nome avversario" name="player2">
+          <BattleFormPlayerNameInput v-model="state.player2" :players />
+        </UFormField>
+        <UFormField label="Fazione avversario" name="player2Faction">
+          <USelectMenu
+            v-model="state.player2Faction"
+            :items="FACTIONS"
+            class="w-50"
+          />
+        </UFormField>
+        <UFormField
+          label="Quanti punti ha fatto l'avversario?"
+          name="player2Points"
+        >
+          <UInputNumber v-model="state.player2Points" class="w-50" />
+        </UFormField>
 
-          <UCheckbox v-if="!isEditMode" v-model="consentGiven" class="mt-2">
-            <template #label>
-              Ho letto la
-              <ULink to="/privacy" target="_blank">privacy policy</ULink>
-              e ho il consenso del giocatore avversario al trattamento dei suoi
-              dati per la registrazione della partita.
-            </template>
-          </UCheckbox>
-        </template>
-
-        <div class="grow"></div>
-
-        <USeparator />
-
-        <div class="flex justify-end gap-2">
-          <UButton
-            v-if="formStep !== FORM_STEPS[0]"
-            color="dark"
-            :icon="AppIcons.ARROW_LEFT"
-            @click="prevStep"
-          >
-            Indietro
-          </UButton>
-
-          <UButton
-            v-if="formStep === FORM_STEPS.at(-1)"
-            type="submit"
-            :trailing-icon="AppIcons.UPLOAD"
-            :loading="submitting"
-            :disabled="!isEditMode && !consentGiven"
-          >
-            Invia
-          </UButton>
-          <UButton
-            v-else
-            color="dark"
-            :trailing-icon="AppIcons.ARROW_RIGHT"
-            @click="nextStep"
-          >
-            Avanti
-          </UButton>
-        </div>
-      </UForm>
+        <UCheckbox v-if="!isEditMode" v-model="consentGiven" class="mt-2">
+          <template #label>
+            Ho letto la
+            <ULink to="/privacy" target="_blank">privacy policy</ULink>
+            e ho il consenso del giocatore avversario al trattamento dei suoi
+            dati per la registrazione della partita.
+          </template>
+        </UCheckbox>
+      </template>
     </template>
-  </UModal>
+  </FormModal>
 </template>

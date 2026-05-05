@@ -16,18 +16,11 @@ const { searchable, searchPlaceholder, ...props } = defineProps<
 
 defineSlots<TableSlots<T>>();
 
-function mergeSlotClasses(k: keyof Required<TableProps>['ui'], fixed: string) {
-  const passed = props.ui?.[k];
-  if (passed) return `${fixed} ${passed}`;
-  return fixed;
-}
-
-const ui = computed(() => ({
-  ...props.ui,
-  td: mergeSlotClasses('td', 'text-white'),
-  base: mergeSlotClasses('base', 'table-fixed'),
-  thead: mergeSlotClasses('thead', 'h-15'),
-}));
+const ui = useMergedSlotClasses(props.ui, {
+  td: 'text-white',
+  base: 'table-fixed',
+  thead: 'h-15',
+});
 
 const globalFilter = ref('');
 </script>

@@ -122,7 +122,7 @@ async function deleteBattle(id: number, close: () => void) {
 
     <template #actions-cell="{ row }">
       <div class="flex justify-center gap-2">
-        <BattleFormModal :state="row.original" @submit="() => refresh()">
+        <BattleFormModal :battle="row.original" @submit="refresh">
           <UTooltip text="Modifica">
             <UButton color="dark" :icon="AppIcons.EDIT" />
           </UTooltip>

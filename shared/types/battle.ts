@@ -28,8 +28,7 @@ export const battleSchema = v.pipe(
     budget: v.pipe(v.number(), v.values(BUDGETS)),
 
     date: v.pipe(
-      v.string(),
-      v.isoDate('Ti sembra una data valida questa?'),
+      dateSchema,
       v.check(
         (val) => val <= today(getLocalTimeZone()).toString(),
         'Dubito che questa partita si sia svolta nel futuro',
