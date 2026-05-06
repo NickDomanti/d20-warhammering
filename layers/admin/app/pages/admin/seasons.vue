@@ -33,9 +33,11 @@ const columns: TableColumn<Season>[] = [
   <AdminTable :data :columns :loading searchable>
     <template #body-bottom>
       <tr>
-        <td colspan="4" class="p-4">
-          <div class="flex justify-end">
-            <UButton :icon="AppIcons.GLOBE">Crea nuova stagione</UButton>
+        <td colspan="100%">
+          <div class="flex justify-end p-4 border-t border-t-accented">
+            <SeasonFormModal>
+              <UButton :icon="AppIcons.GLOBE">Crea nuova stagione</UButton>
+            </SeasonFormModal>
           </div>
         </td>
       </tr>

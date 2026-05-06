@@ -74,5 +74,10 @@ export default defineAppConfig({
         content: 'bg-abyss',
       },
     },
+    fileUpload: {
+      slots: {
+        base: 'border-accented cursor-pointer',
+      },
+    },
   },
 });
